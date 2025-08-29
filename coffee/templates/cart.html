@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your Cart</h2>
+
+    {% if cart_items %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Product</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td><img src="{{ item.product.image.url }}" width="80"></td> <!-- Product -->
+                    <td>{{ item.product.name }}</td>                             <!-- Name -->
+                    <td>${{ item.product.price }}</td>                           <!-- Price -->
+                    <td>{{ item.quantity }}</td>                                 <!-- Quantity -->
+                    <td>${{ item.get_total }}</td>                                   <!-- Total -->
+                    <td>
+                        <a href="{% url 'update_quantity' item.id 'increase' %}" class="btn btn-success">+</a>
+                        <a href="{% url 'update_quantity' item.id 'decrease' %}" class="btn btn-danger">-</a>
+
+                    </td>                                                        <!-- Actions -->
+                </tr>
+                {% endfor %}
+                <tr class="table-length">
+                    <td colspan="5" class="text-end"><strong>Total Amount:</strong></td>
+                    <td><strong>${{ total }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'home' %}" class="btn btn-outline-primary">Continue Shopping</a>
+            <a href="#" class="btn btn-success">Proceed to Checkout</a>
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning text-center">
+            Your cart is empty.
+        </div>
+        <a href="{% url 'home' %}" class="btn btn-primary">Go Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}

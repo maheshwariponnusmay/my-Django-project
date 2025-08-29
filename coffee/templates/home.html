@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>☕ Hot Coffees</h2>
+<div class="row">
+  {% for coffee in hot_coffees %}
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{{ coffee.image.url }}" class="card-img-top" alt="{{ coffee.name }}">
+        <div class="card-body">
+          <h5>{{ coffee.name }}</h5>
+          <p>${{ coffee.price }}</p>
+          <a href="{% url 'add_to_cart' coffee.id %}" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No hot coffee available.</p>
+  {% endfor %}
+</div>
+
+<h2>🧊 Cold Coffees</h2>
+<div class="row">
+  {% for coffee in cold_coffees %}
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{{ coffee.image.url }}" class="card-img-top" alt="{{ coffee.name }}">
+        <div class="card-body">
+          <h5>{{ coffee.name }}</h5>
+          <p>${{ coffee.price }}</p>
+          <a href="{% url 'add_to_cart' coffee.id %}" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No cold coffee available.</p>
+  {% endfor %}
+</div>
+
+<h2>⭐ Special Coffees</h2>
+<div class="row">
+  {% for coffee in special_coffees %}
+    <div class="col-md-3">
+      <div class="card">
+        <img src="{{ coffee.image.url }}" class="card-img-top" alt="{{ coffee.name }}">
+        <div class="card-body">
+          <h5>{{ coffee.name }}</h5>
+          <p>${{ coffee.price }}</p>
+          <a href="{% url 'add_to_cart' coffee.id %}" class="btn btn-primary">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No special coffee available.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
